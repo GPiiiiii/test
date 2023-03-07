@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>排班表</title>
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link th:href="@{favicon.ico}" rel="shortcut icon" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/jquery.contextMenu.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/skins.css}" rel="stylesheet" />
+    <link th:href="@{/ruoyi/css/ry-ui.css?v=4.7.4}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+<table border="1" class="table table-hover">
+    <center>
+        <h1>排班安排表</h1>
+    </center>
+
+    <blockquote>
+        <p>欢迎你，员工'@staff_id'。查看本人排班。</p>
+    </blockquote>
+
+    <div class="row show-grid">
+        <div class="col-md-1">.col-md-6</div>
+        <div class="col-md-1">.col-md-6</div>
+    </div>
+    <tbody>
+    <tr>
+        <th> </th>
+        <th>周日</th>
+        <th>周一</th>
+        <th>周二</th>
+        <th>周三</th>
+        <th>周四</th>
+        <th>周五</th>
+        <th>周六</th>
+    </tr>
+    <tr>
+        <th>早班</th>
+        <th></th>
+        <th></th>
+        <th>√</th>
+        <th>√</th>
+        <th></th>
+        <th>√</th>
+        <th>√</th>
+    </tr>
+    <tr>
+        <th>午班</th>
+        <th>√</th>
+        <th>√</th>
+        <th></th>
+        <th></th>
+        <th>√</th>
+        <th></th>
+        <th>√</th>
+    </tr>
+    <tr>
+        <th>晚班</th>
+        <th></th>
+        <th></th>
+        <th>√</th>
+        <th>√</th>
+        <th>√</th>
+        <th>√</th>
+        <th></th>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>

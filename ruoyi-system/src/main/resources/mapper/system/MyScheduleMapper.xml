@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MyScheduleMapper">
+
+
+
+
+	<resultMap type="com.ruoyi.system.domain.MySchedule" id="MyScheduleResult">
+		<id     property="scheduleId"         column="schedule_id"         />
+		<result property="StaffId"         column="Staff_id"        />
+		<result property="weekDate"          column="week_date"         />
+		<result property="ismorning"            column="ismorning"            />
+		<result property="isnoon"     column="isnoon"    />
+		<result property="ismidnight"           column="ismidnight"           />
+	</resultMap>
+
+	<select id="selectmyScheduleList" parameterType="com.ruoyi.system.domain.MySchedule" resultMap="MyScheduleResult">
+		select * from my_Schedule
+		<where>
+			<if test="weekDate != null and weekDate != ''">
+				AND week_date = #{weekDate}
+			</if>
+			<if test="ismorning != null and ismorning != ''">
+				AND ismorning = #{ismorning}
+			</if>
+			<if test="isnoon != null and isnoon != ''">
+				AND isnoon = #{isnoon}
+			</if>
+			<if test="ismidnight != null and ismidnight != ''">
+				AND ismidnight = #{ismidnight}
+			</if>
+		</where>
+
+	</select>
+
+	<delete id="deleteScheduleByIds" parameterType="Long">
+		delete from my_Schedule
+		where schedule_id in
+		<foreach collection="array" item="ScheduleId" open="(" separator="," close=")">
+		#{ScheduleId}
+		</foreach>
+	</delete>
+
+	<select id="selectScheduleById" parameterType="java.math.BigInteger" resultMap="MyScheduleResult">
+		select * from my_Schedule where Staff_id = #{StaffId}
+	</select>
+
+	<update id="update">
+		update my_Schedule
+		set
+			Staff_id = #{StaffId},
+			week_date = #{weekDate},
+			ismorning = #{ismorning},
+			isnoon= #{isnoon},
+			ismidnight = #{ismidnight}
+		where
+			schedule_id = #{Oldid}
+	</update>
+
+	<insert id="insert">
+		INSERT INTO my_Schedule( Staff_id, week_date,ismorning,isnoon,ismidnight)
+		VALUES
+			(#{StaffId}, #{weekDate},#{ismorning},#{isnoon},#{ismidnight});
+	</insert>
+</mapper>

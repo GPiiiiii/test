@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <th:block th:include="include :: header('新增房间服务')" />
+  <th:block th:include="include :: select2-css" />
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+  <form class="form-horizontal m" id="form-room-add"  >
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label is-required">房间号：</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" name="roomId" id="roomId"  th:value="*{roomId}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label is-required">房间服务ID：</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" name="roomServiceId" id="roomServiceId"  required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label is-required">房间服务类型：</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" name="roomServiceStatus" id="roomServiceStatus"  required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label is-required">备注：</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" name="remarks" id="remarks"  required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label is-required">工作人员ID：</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" name="staffId" id="staffId"  required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">服务类型：</label>
+      <div class="col-sm-8">
+        <input id="roomServiceType" name="roomServiceType" class="form-control" type="text" >
+      </div>
+    </div>
+
+
+  </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: select2-js" />
+<script>
+        var prefix = "/customer/wakeup";
+
+
+        function submitHandler() {
+
+            var roomId = $("input[name='roomId']").val();
+            var roomServiceId = $("input[name='roomServiceId']").val();
+            var roomServiceStatus = $("input[name='roomServiceStatus']").val();
+            var remarks = $("input[name='remarks']").val();
+            var staffId = $("input[name='staffId']").val();
+            var roomServiceType = $("input[name='roomServiceType']").val();
+
+
+            $.ajax({
+                cache : true,
+                type : "POST",-
+                url : prefix + "/addService",
+                data : {
+                    "RoomId": roomId,
+                    "RoomServiceId": roomServiceId,
+                    "RoomServiceStatus": roomServiceStatus,
+                    "Remarks": remarks,
+                    "StaffId": staffId,
+                    "RoomServiceType": roomServiceType,
+
+                },
+                async : false,
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.operate.successCallback(data);
+                }
+            });
+
+	    }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="include :: header('表格搜索')" />
+    <th:block th:include="include :: bootstrap-select-css" />
+</head>
+<body>
+<div class="col-sm-12 search-collapse">
+    <p class="select-title">房间查询</p>
+    <form id="room-form">
+        <div class="select-list">
+            <ul>
+                <li>
+                    <div class="form-group">
+                        <label >楼层:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="">
+                                <option>1层</option>
+                                <option>2层</option>
+                                <option>3层</option>
+                                <option>4层</option>
+                                <option>5层</option>
+                            </select>
+                        </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        <label >房间号:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="">
+                                <option>1号</option>
+                                <option>2号</option>
+                                <option>3号</option>
+                                <option>4号</option>
+                                <option>5号</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        <label >房间类型</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="">
+                                <option>标准间</option>
+                                <option>双人间</option>
+                                <option>豪华间</option>
+                                <option>商务间</option>
+                                <option>复杂套间</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="select-time">
+                    <label>创建时间： </label>
+                    <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+                    <span>-</span>
+                    <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+                </li>
+                <ul class="pull-right">
+                    <li>
+                        <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                        <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset('time-form')"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </form>
+</div>
+</body>
+</html>

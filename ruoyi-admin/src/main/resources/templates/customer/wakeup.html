@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('组合表头')"/>
+</head>
+
+<body class="gray-bg">
+
+<div class="container-div">
+    <div class="row">
+<!--        <div class="col-sm-12 search-collapse">-->
+
+<!--            <form id="online-form">-->
+<!--                <div class="select-list">-->
+<!--                    <ul>-->
+<!--                        <li>-->
+<!--                            房间号：<input type="text" name="roomId"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            房客身份证号：<input type="text" name="userId"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i-->
+<!--                                    class="fa fa-search"></i>&nbsp;搜索</a>-->
+<!--                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i-->
+<!--                                    class="fa fa-refresh"></i>&nbsp;重置</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:user:add">
+                <i class="fa fa-plus"></i> 新增
+            </a>
+        </div>
+
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-table-export-js"/>
+<script th:inline="javascript">
+ var prefix ="/customer/wakeup";
+    var update = [[${@permission.hasPermi('customer:wakeup:wakeUpdate')}]];
+    var remove = [[${@permission.hasPermi('test:wakeup:userDelete')}]];
+    $(function() {
+        var options = {
+            uniqueId: "wakeupId",
+            url: prefix + "/list",
+            createUrl: prefix + "/addService",
+            updateUrl: prefix + "/wakeupUpdate/{id}",
+            removeUrl: prefix + "/remove",
+            showExport: true,
+            columns : [
+
+                [{
+                    field : 'roomId',
+                    title : '房间号'
+                }, {
+                    field : 'roomServiceId',
+                    title : '房间服务ID'
+                }, {
+                    field : 'roomServiceStatus',
+                    title : '房间服务类型'
+                }, {
+                    field: 'remarks',
+                    title: '备注'
+                }, {
+                    field: 'staffId',
+                    title: '工作人员ID'
+                }, {
+                    field: 'roomServiceType',
+                    title: '服务类型'
+                }
+                ]
+            ]
+        };
+        $.table.init(options);
+    });
+
+
+</script>
+</body>
+</html>

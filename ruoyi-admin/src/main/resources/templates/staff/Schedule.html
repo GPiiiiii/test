@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>卡片列表</title>
+    <link href="/css/bootstrap.min.css?v=3.3.7" rel="stylesheet"/>
+    <link href="/css/font-awesome.min.css?v=4.7.4" rel="stylesheet"/>
+    <!-- bootstrap-table 表格插件样式 -->
+    <link href="/ajax/libs/bootstrap-table/bootstrap-table.min.css?v=1.18.3" rel="stylesheet"/>
+    <link href="/css/animate.min.css?v=20210831" rel="stylesheet"/>
+    <link href="/css/style.min.css?v=20210831" rel="stylesheet"/>
+    <link href="/ruoyi/css/ry-ui.css?v=4.7.4" rel="stylesheet"/>
+
+</head>
+<body class="gray-bg">
+
+
+<div  align="center">
+    <div class="ibox-content　panel panel-info">
+        <div class="panel-heading">排班安排</div>
+        <table class="table table-hover">
+            <div class="row show-grid">
+                <tbody>
+                <tr>
+                    <th>班次</th>
+                    <th><button type="button" class="btn btn-success" id="open-7" onclick="openWeekList(7)">周日</button></th>
+                    <th><button type="button" class="btn btn-success" id="open-1" onclick="openWeekList(1)">周一</button></th>
+                    <th><button type="button" class="btn btn-success" id="open-2" onclick="openWeekList(2)">周二</button></th>
+                    <th><button type="button" class="btn btn-success" id="open-3" onclick="openWeekList(3)">周三</button></th>
+                    <th><button type="button" class="btn btn-success" id="open-4" onclick="openWeekList(4)">周四</button></th>
+                    <th><button type="button" class="btn btn-success" id="open-5" onclick="openWeekList(5)">周五</button></th>
+                    <th><button type="button" class="btn btn-success" id="open-6" onclick="openWeekList(6)">周六</button></th>
+                </tr>
+                <tr>
+                    <td>早班</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-7" onclick="openList('morning',7)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-1" onclick="openList('morning',1)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-2" onclick="openList('morning',2)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-3" onclick="openList('morning',3)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-4" onclick="openList('morning',4)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-5" onclick="openList('morning',5)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-moring-6" onclick="openList('morning',6)">查看</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>午班</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-7" onclick="openList('noon',7)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-1" onclick="openList('noon',1)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-2" onclick="openList('noon',2)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-3" onclick="openList('noon',3)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-4" onclick="openList('noon',4)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-5" onclick="openList('noon',5)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-noon-6" onclick="openList('noon',6)">查看</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>晚班</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-7" onclick="openList('night',7)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-1" onclick="openList('night',1)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-2" onclick="openList('night',2)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-3" onclick="openList('night',3)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-4" onclick="openList('night',4)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-5" onclick="openList('night',5)">查看</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="open-night-6" onclick="openList('night',6)">查看</button>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: bootstrap-table-export-js" />
+
+<script th:inline="javascript">
+    var prefix = "/schedule/scheduleInfo";
+
+
+    function openList (time,date){
+
+        $.modal.open('修改排班', prefix + "/list/"+time+"/"+date);
+    }
+
+    function openWeekList (date){
+
+        $.modal.open('修改排班', prefix + "/list/week/"+date);
+    }
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

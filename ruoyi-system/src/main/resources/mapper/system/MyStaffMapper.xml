@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MyStaffMapper">
+
+	<resultMap type="SysUserOnline" id="SysUserOnlineResult">
+		<id     property="sessionId"         column="sessionId"         />
+		<result property="loginName"         column="login_name"        />
+		<result property="deptName"          column="dept_name"         />
+		<result property="ipaddr"            column="ipaddr"            />
+		<result property="loginLocation"     column="login_location"    />
+		<result property="browser"           column="browser"           />
+		<result property="os"                column="os"                />
+		<result property="status"            column="status"            />
+		<result property="startTimestamp"    column="start_timestamp"   />
+		<result property="lastAccessTime"    column="last_access_time"  />
+		<result property="expireTime"        column="expire_time"       />
+	</resultMap>
+
+
+	<resultMap type="com.ruoyi.system.domain.MyStaff" id="MyStaffResult">
+		<id     property="StaffId"         column="Staff_id"         />
+		<result property="StaffName"          column="Staff_name"         />
+		<result property="StaffAge"            column="Staff_age"            />
+		<result property="StaffSex"            column="Staff_sex"            />
+		<result property="StaffPhone"     column="Staff_phone"    />
+		<result property="StaffType"         column="Staff_type"        />
+	</resultMap>
+ 	<select id="selectUserOnlineList" parameterType="com.ruoyi.system.domain.MyStaff" resultMap="MyStaffResult">
+		select * from my_Staff
+		<where>
+			<if test="staffId != null and staffId != ''">
+				AND Staff_id like concat('%', #{staffId}, '%')
+			</if>
+			<if test="staffType != null and staffType != ''">
+				AND Staff_type like concat('%', #{staffType}, '%')
+			</if>
+		</where>
+	</select>
+
+	<update id="updateStaffById" parameterType="com.ruoyi.system.domain.MyStaff">
+		update my_Staff
+		set Staff_name = #{StaffName},
+			Staff_age = #{StaffAge},
+			Staff_sex = #{StaffSex},
+			Staff_phone = #{StaffPhone},
+			Staff_type = #{StaffType},
+		WHERE Staff_id = #{StaffId}
+	</update>
+
+	<select id="selectStaffById" parameterType="java.math.BigInteger" resultMap="MyStaffResult">
+		select * from my_Staff where Staff_id = #{StaffId}
+	</select>
+    <select id="selectStaffAll" resultType="com.ruoyi.system.domain.MyStaff" resultMap="MyStaffResult">
+		select * from my_Staff
+	</select>
+
+    <insert id="insert">
+		INSERT INTO my_Staff ( Staff_id, Staff_name,Staff_age,Staff_sex,Staff_Phone,Staff_type )
+		VALUES
+			(#{StaffId}, #{StaffName},#{StaffAge},#{StaffSex},#{StaffPhone},#{StaffType});
+	</insert>
+
+	<delete id="deleteStaffByIds" parameterType="Long">
+		delete from my_Staff
+		where Staff_id in
+		<foreach collection="array" item="StaffId" open="(" separator="," close=")">
+			#{StaffId}
+		</foreach>
+	</delete>
+
+	<update id="update">
+		update my_Staff
+		set
+			Staff_name = #{StaffName},
+			Staff_age = #{StaffAge},
+			Staff_sex = #{StaffSex},
+			Staff_phone= #{StaffPhone},
+		    Staff_type = #{StaffType}
+		where
+			Staff_id = #{Oldid}
+	</update>
+
+</mapper> 

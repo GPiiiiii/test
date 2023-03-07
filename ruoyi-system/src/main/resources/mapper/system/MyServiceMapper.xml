@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MyServiceMapper">
+
+	<resultMap type="com.ruoyi.system.domain.MyService" id="MyServiceResult">
+		<id     property="RoomServiceId"         column="Room_Service_id"         />
+		<result property="RoomServiceStatus"         column="Room_service_status"        />
+		<result property="RoomId"          column="Room_id"         />
+		<result property="Remarks"            column="remarks"            />
+		<result property="StaffId"     column="Staff_id"    />
+		<result property="RoomServiceType"     column="Room_Service_Type"    />
+	</resultMap>
+	<insert id="insert">
+		insert into my_Room_Service(Room_Service_id, Room_service_status, Room_id, remarks, Staff_id)
+		values (#{RoomServiceId}, #{RoomServiceStatus}, #{RoomId}, #{Remarks}, #{StaffId})
+	</insert>
+	<select id="selectUserServiceList" parameterType="com.ruoyi.system.domain.MyService" resultMap="MyServiceResult">
+		select * from my_Room_Service
+		<where>
+			<if test="RoomId != null and RoomId != ''">
+			AND Room_id= #{RoomId}
+			</if>
+		</where>
+	</select>
+
+	<update id="completeService">
+		update my_Room_Service
+		set Room_service_status = 1
+		where Room_Service_id = #{roomServiceId}
+
+	</update>
+
+
+	<select id="selectServiceOnlineList" parameterType="com.ruoyi.system.domain.MyService" resultMap="MyServiceResult">
+		select * from my_Room_Service
+	</select>
+
+	<select id="selectServiceById" parameterType="java.lang.Long" resultMap="MyServiceResult">
+		select *
+		from my_Room_Service
+		where Room_id = select my_Room.Room_id from my_Room where my_Room.User_id = #{UserId}
+	</select>
+
+
+	<insert id="insertMeal">
+		insert into my_Room_Service( Room_service_status, Room_id, remarks,Room_Service_Type)
+		values ( #{RoomServiceStatus}, #{RoomId}, #{Remarks},#{roomServiceType})
+	</insert>
+
+</mapper> 

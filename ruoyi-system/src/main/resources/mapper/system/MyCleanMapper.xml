@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MyCleanMapper">
+
+
+    <resultMap type="com.ruoyi.system.domain.MyClean" id="MyCleanResult">
+        <id property="CleanId" column="Clean_id"/>
+        <result property="RoomCleanStatus" column="Room_clean_status"/>
+        <result property="CleanContent" column="Clean_content"/>
+        <result property="RoomId" column="Room_id"/>
+        <result property="StaffId" column="Staff_id"/>
+    </resultMap>
+
+    <delete id="deleteCleanByIds" parameterType="Long">
+        delete from my_Clean
+        where Clean_id in
+        <foreach collection="array" item="CleanId" open="(" separator="," close=")">
+            #{CleanId}
+        </foreach>
+    </delete>
+
+
+</mapper> 

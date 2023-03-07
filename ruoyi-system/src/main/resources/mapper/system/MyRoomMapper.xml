@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MyHelloMapper">
+
+
+    <resultMap type="com.ruoyi.system.domain.MyRoom" id="MyRoomResult">
+        <id property="RoomId" column="Room_id"/>
+        <result property="RoomType" column="Room_type"/>
+        <result property="RoomPrice" column="Room_price"/>
+        <result property="RoomOccupancyStatus" column="Room_occupancy_status"/>
+        <result property="RoomCleanStatus" column="Room_clean_status"/>
+        <result property="RoomServiceStatus" column="Room_service_status"/>
+        <result property="UserId" column="User_id"/>
+    </resultMap>
+
+	<insert id="insert">
+		insert into my_Room(Room_id,Room_type,Room_price,Room_occupancy_status,Room_clean_status,Room_service_status)
+		values (#{RoomId},#{RoomType},#{RoomPrice},#{RoomOccupancyStatus},#{RoomCleanStatus},#{RoomServiceStatus})
+
+	</insert>
+	<update id="update">
+		update my_Room
+		set Room_id = #{RoomId},
+			Room_type = #{RoomType},
+			Room_price = #{RoomPrice},
+			Room_occupancy_status = #{RoomOccupancyStatus},
+			Room_clean_status = #{RoomCleanStatus},
+			Room_service_status = #{RoomServiceStatus}
+		where
+		    Room_id = #{Oldid}
+
+	</update>
+
+
+	<delete id="deleteRoomByIds" parameterType="Long">
+			delete from my_Room
+			where Room_id in
+			<foreach collection="array" item="RoomId" open="(" separator="," close=")">
+				#{RoomId}
+			</foreach>
+	</delete>
+
+
+    <select id="selectUserOnlineList" parameterType="com.ruoyi.system.domain.MyRoom" resultMap="MyRoomResult">
+		select * from my_Room
+		<where>
+			<if test="RoomId != null and RoomId != ''">
+				AND Room_id like concat('%', #{RoomId}, '%')
+			</if>
+			<if test="roomPrice != null and roomPrice != ''">
+				AND room_price like concat('%', #{roomPrice}, '%')
+			</if>
+		</where>
+	</select>
+
+
+
+    <select id="selectRoomById" parameterType="java.lang.Long" resultMap="MyRoomResult">
+		select * from my_Room where Room_id = #{RoomId}
+	</select>
+    <select id="selectRoomAll" resultType="com.ruoyi.system.domain.MyRoom" resultMap="MyRoomResult">
+		select *
+		from my_Room
+	</select>
+
+    <select id="selectRoomByUserId" parameterType="java.lang.Long" resultMap="MyRoomResult">
+        select * from my_Room where User_id = #{userId}
+    </select>
+    <select id="selectUserRoomById" parameterType="com.ruoyi.system.domain.MyRoom" resultMap="MyRoomResult">
+        select * from my_Room where User_id = #{userId}
+    </select>
+    <update id="updateUserRoomById" parameterType="com.ruoyi.system.domain.MyUser">
+        update my_Room
+        set Room_occupancy_status=0,
+        User_id=null,
+        Room_clean_status=1
+        where Room_id = #{id}
+    </update>
+</mapper>

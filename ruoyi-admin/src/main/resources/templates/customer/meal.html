@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增房间')" />
+    <th:block th:include="include :: select2-css" />
+</head>
+<body>
+
+        <center>
+
+
+        <div >
+        <h2>请选择订餐类型</h2>
+
+            <label class="radio-inline">
+                <input type="radio" name="type" value="1" id="inlineCheckbox1" checked>早餐
+            </label>
+
+            <label class="radio-inline">
+                <input type="radio" name="type" value="2" id="inlineCheckbox2">午餐
+            </label>
+
+            <label class="radio-inline">
+                <input type="radio" name="type" value="3" id="inlineCheckbox3">晚餐
+            </label>
+        </div>
+
+
+
+        <div  >
+            <h2>请选择需要的餐食</h2>
+
+            <label class="radio-inline">
+                <input type="radio" name="food" value="白粥" id="option1"> <span id="span1">白粥</span></label>
+            <label class="radio-inline">
+                <input type="radio" name="food" value="饺子" id="option2"> <span id="span2">饺子</span></label>
+            <label class="radio-inline">
+                <input type="radio" name="food" value="包子" id="option3"> <span  id="span3">包子</span></label>
+
+        </div>
+
+        <div>
+        <h2 >输入额外请求</h2>
+            <input type="textarea" name="remarks"  style="width: 70%" placeholder="请输入额外请求，如忌口、怀孕……">
+            <!--<textarea type="text" name="remarks" style="width: 70%" placeholder="请输入额外请求，如忌口、怀孕……"></textarea>-->
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="submit()">提交</button>
+        </center>
+
+
+
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: select2-js" />
+<script>
+    var prefix = "/customer/meal";
+
+
+    function submit() {
+
+        var roomServiceType =$("input[name='type']").val() ;
+        var remarks =  $("input[name='food']:checked").val()+'————'+$("input[name='remarks']").val();
+        var roomServiceStatus = "0";
+
+
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : prefix + "/add",
+            data : {
+                "roomServiceType": roomServiceType,
+                "remarks": remarks,
+                "roomServiceStatus": roomServiceStatus,
+                "roomServiceType": roomServiceType
+            },
+            async : false,
+            error : function(request) {
+                $.modal.alertError("系统错误");
+            },
+            success : function(data) {
+                $.modal.msgSuccess("您的"+$("input[name='food']:checked").val()+"预定成功");
+            }
+        });
+
+    }
+
+    $("input[id=inlineCheckbox1]").click(function () {
+        $("#span1").text("白粥")
+        $("#span2").text("饺子")
+        $("#span3").text("包子")
+        $("#option1").val("白粥")
+        $("#option2").val("饺子")
+        $("#option3").val("包子")
+    });
+    $("input[id=inlineCheckbox2]").click(function () {
+        $("#span1").text("臊子面")
+        $("#span2").text("大鸡腿")
+        $("#span3").text("水煮肥牛")
+        $("#option1").val("臊子面")
+        $("#option2").val("大鸡腿")
+        $("#option3").val("水煮肥牛")
+
+    });
+    $("input[id=inlineCheckbox3]").click(function () {
+        $("#span1").text("红烧牛肉面")
+        $("#span2").text("老坛酸菜牛肉面")
+        $("#span3").text("香辣牛肉面")
+        $("#option1").val("红烧牛肉面")
+        $("#option2").val("老坛酸菜牛肉面")
+        $("#option3").val("香辣牛肉面")
+    });
+
+
+
+</script>
+</body>
+</html>

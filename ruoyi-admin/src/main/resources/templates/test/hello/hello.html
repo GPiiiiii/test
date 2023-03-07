@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增用户')" />
+    <th:block th:include="include :: select2-css" />
+</head>
+<body>
+
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler1()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+    </div>
+</div>
+
+<!--<script type="text/javascript">
+    var prefix =  "/test/hello";
+
+
+    function submitHandler() {
+            alert("id")
+
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : "/test/hello/click/1",
+            async : false,
+            error : function(request) {
+                $.modal.alertError("系统错误");
+            },
+            success : function(data) {
+                $.operate.successCallback(data);
+            }
+        });
+
+    }
+
+</script>-->
+<script th:src="@{/js/jquery-ui-1.10.4.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script th:inline="javascript">
+    var lists;
+    function submitHandler1() {
+        alert("id")
+        $.ajax({
+            url: "/test/hello/click/1",
+            type: "get",
+            success: function (result) {
+
+                lists = result;
+                console.log(lists)
+            },
+            error: function (data) {
+                console.log("错：", data)
+            }
+        });
+    }
+</script>
+
+
+
+</body>
+</html>

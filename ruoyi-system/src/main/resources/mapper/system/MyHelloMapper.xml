@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MyRoomMapper1">
+
+
+
+
+	<resultMap type="com.ruoyi.system.domain.MyRoom" id="MyRoomResult">
+		<id     property="RoomId"         column="Room_id"         />
+		<result property="RoomType"         column="Room_type"        />
+		<result property="RoomPrice"          column="Room_price"         />
+		<result property="RoomOccupancyStatus"            column="Room_occupancy_status"            />
+		<result property="RoomCleanStatus"     column="Room_clean_status"    />
+		<result property="RoomServiceStatus"           column="Room_service_status"           />
+		<result property="UserId" column="User_id" />
+	</resultMap>
+
+
+
+
+ 	<select id="selectUserOnlineList" parameterType="com.ruoyi.system.domain.MyRoom" resultMap="MyRoomResult">
+		select * from my_Room
+		<where>
+			<if test="RoomId != null and RoomId != ''">
+				AND Room_id like concat('%', #{RoomId}, '%')
+			</if>
+			<if test="roomPrice != null and roomPrice != ''">
+				AND room_price like concat('%', #{roomPrice}, '%')
+			</if>
+		</where>
+
+	</select>
+
+
+
+    <select id="selectRoomById" parameterType="java.lang.Long" resultMap="MyRoomResult">
+		select * from my_Room where Room_id = #{RoomId}
+
+	</select>
+
+</mapper> 

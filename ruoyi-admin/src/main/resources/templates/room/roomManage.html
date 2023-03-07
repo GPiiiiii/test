@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('在线用户列表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+
+        <div class="col-sm-12 search-collapse">
+
+            <form id="online-form">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            房间id：<input type="text" name="RoomId"/>
+                        </li>
+                        <li>
+                            房间价格：<input type="text" name="roomPrice"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:user:add">
+                <i class="fa fa-plus"></i> 新增
+            </a>
+        </div>
+
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+
+    </div>
+</div>
+
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: bootstrap-table-export-js" />
+
+
+
+<script th:inline="javascript">
+    var update = [[${@permission.hasPermi('test:hello:update')}]];
+    var remove = [[${@permission.hasPermi('test:hello:delete')}]];
+    var prefix = "/test/hello";
+
+    $(function() {
+        var options = {
+            uniqueId: "RoomId",
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/update/{id}",
+            removeUrl: prefix + "/remove",
+            showExport: true,
+            modalName: "房间信息",
+            escape: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    title: "序号",
+                    formatter: function (value, row, index) {
+                        return $.table.serialNumber(index);
+                    }
+                },
+                {
+                    field: 'roomId',
+                    title: '房间id',
+                    formatter: function(value, row, index) {
+                        return $.table.tooltip(value);
+                    }
+                },
+                {
+                    field: 'roomPrice',
+                    title: '房间价格',
+                    sortable: true
+                },
+                {
+                    field: 'roomOccupancyStatus',
+                    title: '入住状态'
+                },
+                {
+                    field: 'roomCleanStatus',
+                    title: '清洁状态'
+                },
+                {
+                    field: 'roomServiceStatus',
+                    title: '服务状态'
+                },
+
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var msg = '<a class="btn btn-success btn-xs ' + update + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.roomId + '\')"><i class="fa fa-edit"></i>更新</a> ';
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + update + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.roomId + '\')"><i class="fa fa-edit"></i>更新</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + remove + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.roomId + '\')"><i class="fa fa-remove"></i>删除</a> ');
+                        return actions;
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+
+</script>
+</body>
+</html>
